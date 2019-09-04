@@ -1,5 +1,5 @@
 ;Author: Samantha Hafner
-;Content: computes the partial sum of a list of integers
+;Content: computes the partial sum of a lsit of integers
 ;Intent: Revised 1 solution to-CSC 312 Ex-1
 
 #!r7rs

@@ -1,0 +1,26 @@
+Author: Samantha Orion Hafner
+Content: Proof of correctness of alternative algorithm noted in Ex-3
+Intent: Solution to CSC-312 Ex-XX-1
+Attribution: Three forms of a lambda expression adapted from definition of lambda expression in Daniel P. Friedman and Mitchell Wand's Essentials of Programming, pg. 9.
+
+
+Let C(x) = the complexity of a lambda expression x.
+Let F(x) = the number of occurrences of "(" plus the number of occurrences of an identifier minus two times the number of occurrences of lambda.
+
+
+Theorem
+F(x) = X(x) for all lambda expressions x.
+
+
+Proof
+
+I will that the statement in question holds true for any lambda expression if it holds for all lambda expressions contained within it, and I will show that the statement holds for the simplest lambda expressions. This will satisfy the hypotheses of structural induction concluding that the statement in question holds for all LcExp. Structurally simpler can be taken to mean having a shorter string representation in the context of this proof.
+
+All lambda expressions are either identifiers, application expressions or lambda expressions. I will address each case separately.
+An identifier expression iExp consists of a single identifier, and consequently F(iExp) = 1 = C(iExp), satisfying the structural induction conclusion for the identifier expression case.
+
+An application expression appExp has the form (rator rand) where rator and rand are LcExp which are simpler than the appEx. F(appEx) equals 1 + F(rator) + F(rand). This equals 1 + C(rator) + C(rand) by the structural induction hypothesis which equals C(appExp), satisfying the structural induction conclusion for the application expression.
+
+A lambda expression lExp has the form (lambda (x) body) where x is an identifier and body is a LcExp. F(lExp) equals 2 + 1 - 2 + F(body) = 1 + F(body). This equals 1 + C(body) by the structural induction hypothesis which equals C(lExp), satisfying the structural induction conclusion for the lambda expression case.
+
+For any lambda expression x, F(x) = C(x) if F(y) = C(y) for all y structurally simpler than x, and in the simplest case, with y being an identifier expression, F(y) = C(y). Therefore, by structural induction, F(x) = C(x) for all lambda expressions x.

@@ -1,0 +1,11 @@
+Let s(n) hold if and only if the sum from 0 to n of 3^i = (3^(n+1) - 1)/2.
+s(0) holds because the sum from i = 0 to 0 of 3^i = 1 = (3-1)/2 = (3^(0+1) - 1)/2.
+Assuming s(n) holds, for some n >= 0, s(n+1) holds because:
+    (the sum from i = 0 to n+1 of 3^i)
+  = (the sum from i = 0 to n of 3^i) + 3^(n+1)
+  = ((3^(n+1) - 1)/2) + 3^(n+1)    [by s(n)]
+  = (3^(n+1) - 1 + 2*3^(n+1))/2
+  = (3*3^(n+1) - 1)/2
+  = (3^((n+1) + 1) - 1)/2.
+By induction, s(n) holds for all n >= 0.
+For every non-negative integer n, the sum from 0 to n of 3^i = (3^(n+1) - 1)/2.

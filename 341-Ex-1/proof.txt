@@ -1,0 +1,10 @@
+Assume, to reach a contradiction, that there exists a greatest prime number p.
+Consider the finite set of all primes P = {2, 3, ..., p}.
+Let q equal 1 plus the product of all elements in p.
+For every prime r in P, q = rn + 1 for some integer n. Specifically, n is the product of all elements in P except for r.
+For every prime r in P, q is equivalent to 1 mod r, and therefore, q is not divisible by r.
+q is not divisible by any prime, and is, therefore prime.
+q is larger than p.
+p is not the greatest prime number.
+We have reached a contradiction, and therefore the original hypothesis must be false.
+There does not exist a greatest prime number p.

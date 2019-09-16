@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 11}
+\author{Samantha Hafner}
+\date{09/15/19}
+
+\begin{document}
+\maketitle
+
+Let $R$ be the regular expression $(a{\cup}b)\mbox{*}a(a{\cup}b)\mbox{*}b(a{\cup}b)\mbox{*}$ on the alphabet $\{a, b\}$.
+
+An NFA representing the regular expression $a$ has two states, a start state, and an accepting state. The transition fuction leads to the accepting state if passed the starting state and the charachter $a$, otherwise, it leads nowhere. Let $A$ be this NFA, and let $->0$ and $->1$ refer to its start and accepting states, respectively.
+
+A simmilar NFA represents the regular expression $b$. Let $B$ be this NFA.
+
+An NFA representing the union of these two regular expressions has all the states and edges of $A$ and $B$ (4 states, 2 of which are accepting, and 2 edges), and an additional non-accepting state with $\epsilon$ arrows to the start states of the two aforementioned NFAs. The start state of this new NFA is that new state. Let $C$ be this NFA, let $.A$ and $.B$ refer to the two NFAs it is built from, and let $.0$ refer to $C$'s starting state.
+
+An NFA representing the kleene star of $(a{\cup}b)$ is simply $C$ with one additional accepting state, the new starting state, and additional $\epsilon$ arrows to the $C$'s start state origninating at the new start state, and both of $C$'s accepting states. Let $D$ be this NFA, let $.C$ refer to the NFA it is built from, and let $.0$ refer to $D$'s starting state.
+
+An NFA representing the concatination of two regular expressions contains all the states and edges of the two origonal regular expressions' NFAs, except the accepting states of the first NFA are no longer accepting, and instead are at the tails of $\epsilon$ arrows pointing to the second NFA's start state. The start state of this new NFA is the start state of the first regular expression's NFA.
+
+Applying this procedure, to construct an NFA representing $R$, we get three copies of $D$, one copy of $A$, and one coply of $B$ connected accepting state to start state be epsilon arrows in the order $DADCD$ with only the final $D$'s accepting states being accepting states of this new NFA, and only the first $D$'s start state beign the start state of this new NFA. Let $E$ be this NFA, and let $D1$, $A$, $D2$, $B$, and $D3$ refer to the NFAs it is built from.
+
+When $E$ is passed $bbbaa$, it starts at $\{D1.0\}$ and progresses through the following steps: 
+
+  $\epsilon$ completion to:
+  
+  $\{D1.0, D1.C.0, D1.C.A.0, D1.C.B.0, A.0\}$
+  
+  Processing $b$ to:
+  
+  $\{D1.C.B.1\}$
+  
+  $\epsilon$ completion to:
+  
+  $\{D1.0, D1.C.0, D1.C.A.0, D1.C.B.0, A.0\}$, which is that same set of states as the $\epsilon$ completion of the start state. We will continue to arrive at this set of states as long as we feed $b$ to our NFA. Conseqeuntly we can skip over the remaining $b$'s.
+  
+  Processing $a$ to:
+  
+  $\{D1.C.A.1, A.1\}$
+  
+  $\epsilon$ completion to:
+  
+  $\{D1.0, D1.C.0, D1.C.A.0, D1.C.B.0, A.0,$
+  
+   $ D2.0, D2.C.0, D2.C.A.0, D2.C.B.0, B.0, \}$
+   
+  Processing $a$ to:
+  
+  $\{D1.C.A.1, A.1, D2.C.A.1\}$
+  
+  $\epsilon$ completion to:
+  
+  $\{D1.0, D1.C.0, D1.C.A.0, D1.C.B.0, A.0,$
+  
+   $ D2.0, D2.C.0, D2.C.A.0, D2.C.B.0, B.0, \}$, which does not contain any of the three accepting states $\{D3.0, D3.C.A.1, D3.C.B.1\}$. Consequently, $E$, which represents $R$ does not accept $bbbaa$, and so $bbbaa \not\in L(R)$.
+  
+  
+
+\end{document}

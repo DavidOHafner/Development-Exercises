@@ -9,26 +9,26 @@
 ; reg-exp ::= fail
 ; reg-exp ::= null-string
 ; reg-exp ::= character
-; reg-exp ::= reg-exp concatination reg-exp
+; reg-exp ::= reg-exp concatenation reg-exp
 ; reg-exp ::= reg-exp alternation reg-exp
-; reg-exp ::= itteration of reg-exp
+; reg-exp ::= iteration of reg-exp
 
 (define-datatype reg-exp reg-exp?
   (fail)
   (null-string)
   (char (value char-graphic?))
-  (concatination (exp1 reg-exp?) (exp2 reg-exp?))
+  (concatenation (exp1 reg-exp?) (exp2 reg-exp?))
   (alternation (exp1 reg-exp?) (exp2 reg-exp?))
-  (itteration (exp reg-exp?)))
+  (iteration (exp reg-exp?)))
 
 ;Test
 (display (alternation
-          (concatination
-           (concatination
+          (concatenation
+           (concatenation
             #\b
             #\a)
-           (concatination
-            (itteration
+           (concatenation
+            (iteration
              #\a)
             #\!))
           (null-string)))

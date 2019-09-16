@@ -1,0 +1,17 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 11}
+\author{Samantha Hafner}
+\date{09/16/19}
+
+\begin{document}
+\maketitle
+
+Let $B=\{a^nbub^n | n>=2$ and $u \in \{a,b\}\mbox{*}\}$.
+
+For all pumping lengths $p$, let $s = a^{p+2} b a b^{p+2}$. $s$ is in the language $B$ and has length greator than $p$. For all partitions $s = xyz$ satisfying $|xy| <= p$ and $|y| > 0$, $xy^0z$ is of the form $a^mbab^n$ where $m < n$ and is thererfore not in the language $B$.
+
+By the converse of the pumping lemma, $B$ is not regular.
+  
+
+\end{document}

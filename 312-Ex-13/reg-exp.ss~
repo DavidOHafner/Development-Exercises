@@ -3,7 +3,7 @@
 ;Intent: Solution to CSC-312 Ex-13
 
 #!r7rs
-(import (scheme base) (scheme write) (utilities eopl) (scheme char))
+(import (scheme base) (scheme write) (utilities eopl))
 
 ; Grammer:
 ; reg-exp ::= fail
@@ -21,17 +21,14 @@
   (alternation (exp1 reg-exp?) (exp2 reg-exp?))
   (iteration (exp reg-exp?)))
 
-(define (char-graphic? test)
-  (char<? #\x20 test #\x7F))
-
 ;Test
 (display (alternation
           (concatenation
            (concatenation
-            (char #\b)
-            (char #\a))
+            #\b
+            #\a)
            (concatenation
             (iteration
-             (char #\a))
-            (char #\!)))
+             #\a)
+            #\!))
           (null-string)))

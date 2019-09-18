@@ -1,5 +1,5 @@
 ;Author: Samantha Hafner
-;Content: Grammar, datatype defeneition, and interpreter for the stack program language.
+;Content: Grammar, datatype definitions, and interpreter for the stack program language.
 ;Intent: Solution to CSC-312 Ex-14
 ;Attribution: Specification for stack program syntax and interpretation
 ;  adopted from John David Stone's Exercise 14 for CSC 312

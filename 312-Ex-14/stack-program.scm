@@ -5,7 +5,7 @@
 ;  adopted from John David Stone's Exercise 14 for CSC 312
 
 #!r7rs
-(import (scheme base) (scheme write)); (utilities eolp))
+(import (scheme base) (scheme write) (utilities eolp))
 
 ;Concrete grammar for stack program:
 ; program ::= {routine}*
@@ -44,9 +44,29 @@ custom datatypes appearing in a stack program's abstract syntax tree
   (unless (null? list-of-routines)
     (begin
       (cases routine (car list-of-routines)
-        (print () (display top-of-stack))
+        (print () (begin (display top-of-stack) (newline)))
         (push-pop
          (value body)
          (cases program body
            (a-program (list-of-routines) (execute-list-of-routines list-of-routines value)))))
       (execute-list-of-routines (cdr list-of-routines) top-of-stack))))
+
+;Test: output should be "Empty Stack\n"
+(execute (a-program (list (print))))
+;Test: output should be "1\n2\n2\n3\n1\n"
+(execute (a-program (list
+  (push-pop
+    1 
+    (a-program (list
+      (print)
+      (push-pop
+        2
+        (a-program (list
+          (print)
+          (print)
+          (a-program (list
+            (push-pop
+              3
+              (a-program (list
+                (print)))))))))
+      (print)))))))

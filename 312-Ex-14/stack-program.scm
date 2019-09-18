@@ -1,23 +1,23 @@
 ;Author: Samantha Hafner
-;Content:
+;Content: Grammar, datatype defeneition, and interpreter for the stack program language.
 ;Intent: Solution to CSC-312 Ex-14
 ;Attribution: Specification for stack program syntax and interpretation
 ;  adopted from John David Stone's Exercise 14 for CSC 312
 
 #!r7rs
-(import (scheme base) (scheme write) (utilities eolp))
+(import (scheme base) (scheme write) (utilities eopl))
 
 ;Concrete grammar for stack program:
 ; program ::= {routine}*
 ; routine ::= print
 ; routine ::= push Int program pop
 
-custom datatypes appearing in a stack program's abstract syntax tree
+;custom datatypes appearing in a stack program's abstract syntax tree
 (define-datatype program program?
   (a-program (body list-of-routines?)))
 (define-datatype routine routine?
   (print)
-  (push-pop (value int?) (body program?)))
+  (push-pop (value integer?) (body program?)))
 
 ;list-of-routines?: SchemeVal -> Bool
 ;usage: (list-of-routines? test) returns #t iff test is a finite list of values which satisfy routine?
@@ -53,6 +53,18 @@ custom datatypes appearing in a stack program's abstract syntax tree
 
 ;Test: output should be "Empty Stack\n"
 (execute (a-program (list (print))))
+(newline)
+;Test: output should be "2\n1\n"
+(execute (a-program (list
+  (push-pop
+    1 
+    (a-program (list
+      (push-pop
+        2
+        (a-program (list
+          (print))))
+      (print)))))))
+(newline)
 ;Test: output should be "1\n2\n2\n3\n1\n"
 (execute (a-program (list
   (push-pop
@@ -64,9 +76,8 @@ custom datatypes appearing in a stack program's abstract syntax tree
         (a-program (list
           (print)
           (print)
-          (a-program (list
-            (push-pop
-              3
-              (a-program (list
-                (print)))))))))
+          (push-pop
+            3
+            (a-program (list
+              (print)))))))
       (print)))))))

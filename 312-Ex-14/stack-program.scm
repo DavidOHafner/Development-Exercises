@@ -7,7 +7,8 @@
 #!r7rs
 (import (scheme base) (scheme write) (utilities eopl))
 
-;Concrete grammar for stack program:
+
+;Concrete grammar for stack programs:
 ; program ::= {routine}*
 ; routine ::= print
 ; routine ::= push Int program pop
@@ -35,11 +36,14 @@
   (cases program stack-program
     (a-program (list-of-routines) (execute-list-of-routines list-of-routines "Empty Stack"))))
 
+
 ;execute: list-of-routines × SchemeVal -> ∅
 ;usage: prints output according to the specified behavior of a list-of-routines
 ;       with specified value at the top of the stack.
 ;       This procedure is more general than requiered by the stack program specification
 ;       but an error will still be thrown if a non integer is pushed onto the stack.
+;       Due to the recursive nature of this procedure, the Scheme call stack records
+;       the stack program stack and so passing the entire stack would be redundant.
 (define (execute-list-of-routines list-of-routines top-of-stack)
   (unless (null? list-of-routines)
     (begin
@@ -50,6 +54,7 @@
          (cases program body
            (a-program (list-of-routines) (execute-list-of-routines list-of-routines value)))))
       (execute-list-of-routines (cdr list-of-routines) top-of-stack))))
+
 
 ;Test: output should be "Empty Stack\n"
 (execute (a-program (list (print))))

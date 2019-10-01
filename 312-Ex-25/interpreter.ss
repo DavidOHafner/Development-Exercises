@@ -5,7 +5,7 @@
 ;;; John David Stone
 ;;; Department of Computer Science
 ;;; Grinnell College
-;;; Eddited slightly by Samantha Hafner to use call by reference
+;;; Edited slightly by Samantha Hafner to use call by reference
 ;;; for variables and pair entries. All code changes noted.
 
 ;;; This is an interpreter for the MUTABLE-PAIRS programming language,
@@ -67,7 +67,7 @@
             (proc-val (a-proc parameter body env)))
           (call-exp (operator operand)
             (let ((proc (expval->proc (value-of operator env)))
-                  (arg (cases expression opperand;Added cases expression to either create or re-use a reference
+                  (arg (cases expression operand ;Added cases expression to either create or re-use a reference
                     (var-exp (id) (apply-env env id))
                     (left-exp (pair) 
                       (cases mutpair (expval->mutpair (value-of pair env))
@@ -75,7 +75,7 @@
                     (left-exp (pair) 
                       (cases mutpair (expval->mutpair (value-of pair env))
                         (a-pair (left-loc right-loc) right-loc)))
-                    (else (newref (value-of operand env)))));End addition
+                    (else (newref (value-of operand env))))) ;End addition
               (apply-procedure proc arg)))
           (letrec-exp (procedure-names parameters procedure-bodies letrec-body)
             (value-of letrec-body (extend-env-rec procedure-names
@@ -114,11 +114,11 @@
     ;; apply-procedure : Proc * Reference -> ExpVal ;Changed to accept reference instead of value
 
     (define apply-procedure
-      (lambda (applicand ref-to-argument);Changed argument name to reflect its new type
+      (lambda (applicand ref-to-argument) ;Changed argument name to reflect its new type
         (cases proc applicand
           (a-proc (parameter body saved-env)
             (value-of body
-                      (extend-env parameter ref-to-argument saved-env))))))));Changed to remove reference creation
+                      (extend-env parameter ref-to-argument saved-env)))))))) ;Changed to remove reference creation
 
 ;;; The definitions in this library
 ;;; are derived from the work of Friedman and Wand,

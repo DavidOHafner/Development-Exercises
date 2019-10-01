@@ -1,0 +1,99 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 24}
+\author{Samantha Hafner}
+\date{10/1/19}
+
+\begin{document}
+\maketitle
+
+\newcommand\IR[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+\newcommand\VOE[5]{(\textrm{value-of}\;#1 \;\rho#2 \;\sigma#3 )=(#4,\sigma#5)}
+\newcommand\ROE[5]{(\textrm{result-of}\;#1 \;\rho#2 \;\sigma#3 )=#4\sigma#5}
+\newcommand\RO[3]{(\textrm{result-of}\;#1 \;\rho#2 \;\sigma#3 )}
+
+I present a possible list of inference-rule specifications for the five statement types other than while in the language described in Exercise 4.22 (page 122) of \textit{Essentials of Programming Languages, Third Edition} by Daniel P. Friedman and Mitchell Wand.
+
+\vspace{25px}
+{\setlength{\parindent}{0px}
+Assignment statements
+
+\vspace{10px}
+$\IR{\
+  \VOE{exp}{}{_0}{val}{_1}
+}{\
+  \ROE{(\textrm{assignment-stmt}\;id\;exp)}{}{_0}{[\rho(id)=val]}{_1}\
+}$
+
+\vspace{25px}
+Print statements
+
+\vspace{10px}
+$\IR{\
+  \VOE{exp}{}{_0}{val}{_1}
+}{\
+  \ROE{(\textrm{print-stmt}\;exp)}{}{_0}{[\textrm{print-n}=val]}{_1}\
+}$
+}
+
+\vspace{5px}
+Where n is the lowest positive integer such that print-n is not in $\sigma_1$. An external device seeking to determine the output of a program should examine the final store or any intermediary store's entries for print-n for positive integers n.
+
+{\setlength{\parindent}{0px}
+
+\vspace{25px}
+Block statements
+
+\vspace{10px}
+$\IR{\
+  (\textrm{null?}\;stmts) = \#t\
+}{\
+  \ROE{(\textrm{block-stmt}\;stmts)}{}{}{}{}\
+}$
+
+\vspace{10px}
+$\IR{\
+  (\textrm{null?}\;stmts) = \#f\qquad\ROE{(\textrm{car}\;stmts)}{}{_0}{}{_1}\
+}{\
+  \RO{(\textrm{block-stmt}\;stmts)}{}{_0}=\RO{(\textrm{block-stmt (cdr}\;stmts))}{}{_1}\
+}$
+
+\vspace{100px}
+If statements
+
+\vspace{10px}
+$\IR{\
+  \VOE{exp}{}{_0}{\#t}{_1}\
+}{\
+  \RO{(\textrm{if-stmt}\;test\;consequent\;alternative)}{}{_0} = \RO{consequent}{}{_1}\
+}$
+
+\vspace{10px}
+$\IR{\
+  \VOE{exp}{}{_0}{\#f}{_1}\
+}{\
+  \RO{(\textrm{if-stmt}\;test\;consequent\;alternative)}{}{_0} = \RO{alternative}{}{_1}\
+}$
+
+\vspace{25px}
+Var statements
+
+\vspace{10px}
+$\IR{\
+  (\textrm{null?}\;ids) = \#t\
+}{\
+  \RO{(\textrm{var-stmt}\;ids\;stmt)}{_0}{} = \RO{stmt}{_0}{}\
+}$
+
+\vspace{10px}
+$\IR{\
+  (\textrm{null?}\;ids) = \#f\qquad[(\textrm{car}\;ids)=l]\rho_0 = \rho_1\
+}{\
+  \RO{(\textrm{var-stmt}\;ids\;stmt)}{_0}{} = \RO{(\textrm{var-stmt}\;(\textrm{cdr}\;ids)\;stmt)}{_1}{}\
+}$
+}
+
+\vspace{5px}
+Where $l$ is neither in $\sigma$ nor of the form print-n where n is a positive integer.
+
+\end{document}

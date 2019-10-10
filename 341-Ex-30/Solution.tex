@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 30}
+\author{Samantha Hafner}
+\date{10/9/19}
+
+\begin{document}
+\maketitle
+
+
+The context free grammar
+\begin{center}$S = aSb\;\vert\;S'\\\;S' = bS'a\;\vert\;\epsilon$\end{center}
+
+generates the language 
+
+\begin{center}$\{a^m b^n a^n b^m\;|\;m,n\ge0\}$.\end{center}
+
+This language is recognized by the pushdown automaton
+
+\begin{center}$(\{S, A_1, B_1, A_2, B_2, F\},\;\{a, b\},\;\{\$, E, I\},\;\delta,\;S,\;\{F\})$\end{center}
+
+where $\delta$ maps everything to $\emptyset$ except for
+
+
+\setlength{\parindent}{3em}
+$(S,\epsilon,\epsilon) \rightarrow \{(A_1, \$)\}$,
+
+$(A_1,a,\epsilon) \rightarrow \{(A_1, E), (B_1, E)\}$,
+
+$(B_1,b,\epsilon) \rightarrow \{(B_1, I), (A_2, I)\}$,
+
+$(A_2,a,I) \rightarrow \{(A_2, \epsilon), (B_2, \epsilon)\}$,
+
+$(B_2,b,E) \rightarrow \{(B_2, \epsilon)\}$, and
+
+$(B_2,\epsilon,\$) \rightarrow \{(F, \epsilon)\}$.
+
+\end{document}

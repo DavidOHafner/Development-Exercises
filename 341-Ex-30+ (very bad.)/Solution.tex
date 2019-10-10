@@ -1,0 +1,30 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 30+}
+\author{Samantha Hafner}
+\date{10/9/19}
+
+\begin{document}
+\maketitle
+
+
+$S = aSb\;\vert\;S';\;S' = aS'b\;\vert\;\epsilon$ generates $\{a^m b^n a^n b^m\;|\;m,n\ge0\}$.
+This language is recognized by pushdown automaton $(\{S, A_1, B_1, A_2, B_2, F\}, \{a, b\}, \\\{\#, e, i\}, \delta, S, F)$
+where $\delta$ maps everything to $\emptyset$ except for
+
+$(S,\epsilon,\epsilon) \rightarrow \{(A_1, \#)\}$,
+
+$(A_1,a,\epsilon) \rightarrow \{(A_1, e), (B_1, e)\}$,
+
+$(B_1,b,\epsilon) \rightarrow \{(B_1, i), (A_2, i)\}$,
+
+$(A_2,\epsilon,i) \rightarrow \{(A_2, \epsilon), (B_2, \epsilon)\}$,
+
+$(B_2,\epsilon,e) \rightarrow \{(B_2, \epsilon)\}$, and
+
+$(B_2,\epsilon,\#) \rightarrow \{(F, \epsilon)\}$.
+
+This pushdown automata pushes a single $\#$, $E$ $e$'s, and $I$ $i$'s on input length $n$ $a^Eb^Iu\;|\;u\in\{a,b\}^{(n-E-I)}$. The maximum stack size is 1+$E$+$I$, which can large as high as, but no larger than $n+1$, so the space complexity is $\Theta(n)$. Every transition either pushes or pops a single element to or from the stack, and all pushes are completed before any pops, thus bounding the number of transitions inclusively between the maximum stack size and twice the maximum stack size. This means that the time complexity is the same as the space complexity and is $\Theta(n)$.
+
+
+\end{document}

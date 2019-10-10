@@ -1,0 +1,18 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 31}
+\author{Samantha Hafner}
+\date{10/9/19}
+
+\begin{document}
+\maketitle
+
+$M_2$ pushes a $\$$ and $i$ $a$'s when run on imput string $a^i\{a,b,c\}^{(n-i)}$ of length $n$. $i$ can be as great as but not greater than $n$, meaning the maximum stack depth on all inputs of length $n$ is $n+1$ and, therefore, the space complexity of $M_2$ is $\Theta(n)$.
+
+The space complexity of a pushdown automaton is always less than or equal to the time complexity of that pushdown automaton becuase no transition can increase the stack length by more than 1. Therefore, the time complexity of $M_2$ is $\Omega(n)$.
+
+Each transition in $M_2$ which is part of a cycle on the state graph and may therefore be performed more than once either consumes a charachter from the input or a charachter from the stack. Once a charachter is removed from the stack, no more charachters are added to it, so the number of transitions that do not consume charachters from the input is at most a constant plus the maximum stack size which is $O(n)$. The number of transitions which do consume a charachter from the input is $O(n)$. The total number of transitions is the sum of these two, which is still $O(n)$.
+
+Because the time complecity of $M_2$ is $\Omega(n)$ and $O(n)$, the time complexity of $M_2$ is $\Theta(n)$.
+
+\end{document}

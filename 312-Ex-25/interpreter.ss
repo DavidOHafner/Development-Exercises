@@ -72,10 +72,10 @@
                     (left-exp (pair) 
                       (cases mutpair (expval->mutpair (value-of pair env))
                         (a-pair (left-loc right-loc) left-loc)))
-                    (left-exp (pair) 
+                    (right-exp (pair) 
                       (cases mutpair (expval->mutpair (value-of pair env))
                         (a-pair (left-loc right-loc) right-loc)))
-                    (else (newref (value-of operand env))))) ;End addition
+                    (else (newref (value-of operand env)))))) ;End addition
               (apply-procedure proc arg)))
           (letrec-exp (procedure-names parameters procedure-bodies letrec-body)
             (value-of letrec-body (extend-env-rec procedure-names
@@ -130,6 +130,16 @@
 ;;; and is likewise released
 ;;; under the Creative Commons Attribution-Noncommercial 3.0 Unported License.
 
-;;; The alteration to use call by reference for variables and pair entries
+(import (scheme write))
+; Should be 12
+(display (run "let f = proc (var) set var = 12 in let x = 3 in begin (f x); x end"))
+(newline)
+; Should be -11
+(display (run "left(let f = proc (var) set var = -(var, 12) in let x = pair(1, 2) in begin (f left(x)); (f right(x)); x end)"))
+(newline)
+; Should be -10
+(display (run "right(let f = proc (var) set var = -(var, 12) in let x = pair(1, 2) in begin (f left(x)); (f right(x)); x end)"))
+
+;;; The alteration and coresponding tests to use call by reference for variables and pair entries
 ;;; is copyright (C) 2019 by Samantha Hafner and is likewise released
 ;;; under the Creative Commons Attribution-Noncommercial 3.0 Unported License.

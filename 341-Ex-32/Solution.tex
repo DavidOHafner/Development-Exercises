@@ -1,0 +1,26 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 32}
+\author{Samantha Hafner}
+\date{10/13/19}
+
+\begin{document}
+\maketitle
+
+
+The language $L$ $\{a^n\;|\;n=2^m \textrm{ for some natural number } m\}$ on input alphabet $\{a\}$ can be decided by the following algorithm $A$:
+\begin{enumerate}
+\itemsep-.3em
+\item Reject if the tape is blank.
+\item Scan right along the tape until a blank is reached, crossing out every other zero and keeping track of parity of whether the number of $0$'s is equal to 1 and whether it is odd. Accept if 1, otherwise reject if odd.
+\item Return to step 2.
+\end{enumerate}
+I will prove $A$ decides the $L$ by mathematical induction. $A$ rejects $a^0$, and accepts $a^1$. $A$ accepts inputs in $L$ and rejects inputs not in $L$ for all inputs with length $< 2^1$. 
+Assume as an inductive hypothesis that for some $n \ge 1$, $A$ accepts inputs in $L$ and rejects inputs not in $L$ for all inputs with length $< 2^n$. All inputs with $2^n \le$ length $< 2^{n+1}$ have either an even or an odd length. $A$ should and does reject all odd inputs. $A$ accepts an even input $a^{2n}$ iff $A$ accepts $a^n$, and rejects an even input $a^{2n}$ iff $A$ rejects $a^n$. For all even inputs $a^{2n}$ with length $< 2^{n+1}$, $a^n$ has length $< 2^n$, and by the inductive hypothesis, $A$ accepts such inputs in $L$ and rejects such inputs not in $L$. Therefore, $A$ accepts inputs in $L$ and rejects inputs not in $L$ for all inputs with $2^n \le$ length $< 2^{n+1}$, and along with the inductive hypothesis, this means that $A$ accepts inputs in $L$ and rejects inputs not in $L$ for all inputs with length $< 2^{n+1}$. By mathematical induction, $A$ accepts all inputs in $L$ and rejects all inputs not in $L$. Therefore, $A$ decides $L$, and $L$ is decidable.
+
+I will prove that $L$ is not context free using the contrapositive of the pumping lemma for context-free languages.
+For all numbers $p$, there exists a string $s = a^{2^{\lfloor log_2(x)\rfloor+1}}$ which is in $L$ and has length larger than $p$. For all partitions of $s$ into five pieces $s = uvxyz$ satisfying the conditions $|vy| > 0$ and $|vxy| \le p$, $0 < |vy| < |s|$, and so $uv^2xy^2z$ is longer than $s$, but less than twice as long as $s$ and is therefore not in $L$. Therefore, $L$ is not context free.
+
+Pumping lemma for context free languages from Michael Sipser's \textit{Introduction to the theory of computation 3\textsuperscript{rd} edition.}
+
+\end{document}

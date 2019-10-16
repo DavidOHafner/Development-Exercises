@@ -1,0 +1,14 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 38}
+\author{Samantha Hafner}
+\date{10/15/19}
+
+\begin{document}
+\maketitle
+
+It is possible to determine whether any program in the CHECKED language is type-safe under Friedman and Wand's definition by recursively determining the type of each expression and checking that no invalid operations occur. This is possible, in part, because each expression can have only a single type.
+
+In LETREC, however, the body of a procedure can hold a rich variety of types which can depend on the type of its bound variable. The types that a procedure can represent, and the way procedures can manipulate them can fully model $\lambda$-calculus, and so, if one could determine whether any program in the LETREC language is type-safe, one could evaluate an arbitrary expression in $\lambda$-calculus. This is at least as hard as solving the general halting problem, which, assuming the Church-Turing thesis, is not possible.
+
+\end{document}

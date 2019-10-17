@@ -1,0 +1,21 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 6}
+\author{Samantha Hafner}
+\date{10/17/19}
+
+\begin{document}
+\maketitle
+
+The finite automaton
+
+\begin{center} $(\{q_0, q_a, q_{ab}, q_{aba}\},\;\{a, b\},\;\delta,\;q_0,\;\{q_{aba}\})$\end{center}
+
+where $\delta$ maps \\
+$(q_0,a)\rightarrow q_a$, $(q_0,b)\rightarrow q_0$,\\
+$(q_a,a)\rightarrow q_a$, $(q_a,b)\rightarrow q_{ab}$,\\
+$(q_{ab},a)\rightarrow q_{aba}$, $(q_{ab},b)\rightarrow q_0$,\\
+$(q_{aba},a)\rightarrow q_a$, and $(q_{aba},b)\rightarrow q_{ab}$.\\
+
+Recognizes the set of strings on the alphabet $\{a, b\}$ that end with the substring $aba$.
+\end{document}

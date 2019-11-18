@@ -1,0 +1,48 @@
+\documentclass[12pt]{article}
+
+\title{Exercise 47}
+\author{Samantha Hafner}
+\date{11/17/19}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+
+\begin{document}
+\maketitle
+
+I conjecture the following classifications, but provide full proof for only (a) and (e):
+
+(a) i. Proof follows.
+
+(b) iii for typical encodings. Easily decidable. Can be proved non context-free for some encodings via the pumping lemma.
+
+(c) iii. Easily decidable. For pumping length $p$, the string $\textrm{a}^p\textrm{b}^{2p}\textrm{a}^p$ cannot be partitioned into $uvxyz$ and pumped due to the requirement that $|vxy|\le p$.
+
+(d) iv for typical encodings. Recognized by running in parallel $M$ on all possible inputs, increasing allowable run time and input length simultaneously. If it were decidable, then $E_{TM}$ would be decidable by checking if every state is accessible for every subset of states, and accepting iff the accept state is not in the largest accepted subset.
+
+(e) ii Proof follows.
+
+
+\bigskip
+
+The set $L_1 = \{u\in\{0,1,2\}^n\;|\;7\textrm{ does not divide }\sum_{i=0}^nu_i3^{n-i}\}$ is recognized by deterministic finite automata $M_1 = (\mathbb{Z}_7,\; \mathbb{Z}_3,\; \delta(\sigma, x) \equiv 3\sigma+x \textrm{ mod } 7,\; 0,\\\mathbb{Z}_7\setminus\{0\})$ and is, therefore, regular. At each point in computation $M_1$'s state is equivalent to the numeral processed that far mod 7. $M_1$ accepts if and only if the whole numeral is not divisible by 7. The existence of $M_1$ demonstrates that $L_1$ is regular.
+
+\bigskip
+
+Let $L_2$ be the set such that $u\in L_2$ if and only if $u=\emptyset$ or there exist $s,t\in L_2$ such that $u=[s]t$. (adapted from \textit{Mathematics for Computer Science}, by Eric Lehman, F. Thomson Leighton, and Albert R. Meyer, revision of June 6, 2018, page 222.) Consider the push down automata:
+$$M_2 = (\{q_0,q_1,q_2\},\;  \{[,]\},\;  \{\#,[\},\;  \delta(x)=\begin{cases}
+\{(q_1,\#)\}                & x=(q_0,\epsilon,\epsilon)\\
+\{(q_1,[)\}                 & x=(q_1,[,\epsilon)\\
+\{(q_1,\epsilon)\}          & x=(q_1,],[)\\
+\{(q_2,\epsilon)\} & x=(q_1,\epsilon,\#)\\
+\emptyset                   & \textrm{otherwise}
+\end{cases},\;  q_0, \{q_2\})$$
+$M_2$ accepts $\emptyset$. Assuming $M_2$ properly handles all inputs smaller than $u$, $M_2$ accepts $u$ if there exist $s,t\in L_2$ such that $u=[s]t$ by adding \# and [ to the stack, processing $s$, resulting in an unchanged stack, removing the [ from the stack, resulting in a stack consisting of a single \#, and processing $t$ on that stack, which accepts. Further, $M_2$ rejects all strings that start with a ], and only accepts a string $u$ that start with a [ by pushing [ to the stack, processing an accepting string $s$, resulting in an unchanged stack, processing a ], and then processing an accepting string $t$. This means that $M_2$ will only accept a string accept a string $u$ if there exist $s,t\in L_2$ such that $u=[s]t$. By structural induction, $M_2$ recognizes $L_2$. The existence of $M_2$ demonstrates that $L_2$ is context-free.
+
+Any deterministic finite automaton which recognizes $L_2$ must be in a distinct state after processing each of \{[, [[, [[[, ...\} because each corresponds to a different set of possible accepting continuations. This necessitates an infinite number of states. $L_2$ is not regular.
+
+$L_2$ is context-free but not regular.
+
+
+
+\end{document}
